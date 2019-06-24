@@ -37,15 +37,15 @@ class Home extends Component {
         this.props.getQuotes(); //call our action
     }
 
-    showOptions(quote) {
+    showOptions(task) {
         ActionSheetIOS.showActionSheetWithOptions({
                 options: BUTTONS,
                 cancelButtonIndex: CANCEL_INDEX,
                 destructiveButtonIndex: 1,
             },
             (buttonIndex) => {
-                if (buttonIndex === 0) Actions.new_quote({quote: quote, edit: true, title:"Edit Quote"})
-                else if (buttonIndex === 1) this.props.deleteQuote(quote.id)
+                if (buttonIndex === 0) Actions.new_quote({task: task, edit: true, title:"Edit Quote"})
+                else if (buttonIndex === 1) this.props.deleteQuote(task.id)
             });
     }
 
@@ -79,12 +79,12 @@ class Home extends Component {
         return (
             <TouchableHighlight onPress={() => this.showOptions(item)} underlayColor='rgba(0,0,0,.2)'>
                 <View style={styles.row}>
-                    <Text style={styles.quote}>
-                        {item.quote}
+                    <Text style={styles.task}>
+                        {item.task}
                     </Text>
-                    <Text style={styles.author}>
-                        {item.author}
-                    </Text>
+                    {/* <Text >
+                        put date auto 
+                    </Text> */}
                 </View>
             </TouchableHighlight>
         )
@@ -132,14 +132,7 @@ const styles = StyleSheet.create({
         borderColor: "#ccc",
         padding: 10
     },
-
-    author: {
-        fontSize: 14,
-        fontWeight: "600",
-        marginTop: 8 * 2
-    },
-
-    quote: {
+    task: {
         marginTop: 5,
         fontSize: 14,
     },

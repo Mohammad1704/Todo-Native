@@ -15,8 +15,7 @@ class NewQuote extends Component {
         super(props);
 
         this.state = {
-            author: (props.edit) ? props.quote.author : "",
-            quote: (props.edit) ? props.quote.quote : ""
+            task: (props.edit) ? props.task.task : ""
         };
 
         this.generateID = this.generateID.bind(this);
@@ -36,14 +35,13 @@ class NewQuote extends Component {
 
     addQuote() {
         if (this.props.edit){
-            let quote = this.props.quote;
-            quote['author'] = this.state.author;
-            quote['quote'] = this.state.quote;
-            this.props.updateQuote(quote);
+            let task = this.props.task;
+            task['task'] = this.state.task;
+            this.props.updateQuote(task);
         }else{
             let id = this.generateID();
-            let quote = {"id": id, "author": this.state.author, "quote": this.state.quote};
-            this.props.addQuote(quote);
+            let task = {"id": id,"task": this.state.task};
+            this.props.addQuote(task);
         }
 
         Actions.pop();
@@ -54,26 +52,19 @@ class NewQuote extends Component {
             <View style={{flex: 1, backgroundColor: '#fff'}}>
                 <View style={{flex:1, paddingLeft:10, paddingRight:10}}>
                     <TextInput
-                        onChangeText={(text) => this.setState({author: text})}
-                        placeholder={"Author"}
-                        autoFocus={true}
-                        style={[styles.title]}
-                        value={this.state.author}
-                    />
-                    <TextInput
                         multiline={true}
-                        onChangeText={(text) => this.setState({quote: text})}
+                        onChangeText={(text) => this.setState({task: text})}
                         placeholder={"Enter Quote"}
-                        style={[styles.quote]}
-                        value={this.state.quote}
+                        style={[styles.task]}
+                        value={this.state.task}
                     />
                 </View>
                 <TouchableOpacity style={[styles.saveBtn]}
-                                  disabled={(this.state.author.length > 0 && this.state.quote.length > 0) ? false : true}
+                                  disabled={(this.state.task.length > 0) ? false : true}
                                   onPress={this.addQuote}>
                     <Text style={[styles.buttonText,
                         {
-                            color: (this.state.author.length > 0 && this.state.quote.length > 0) ? "#FFF" : "rgba(255,255,255,.5)"
+                            color: (this.state.task.length > 0) ? "#FFF" : "rgba(255,255,255,.5)"
                         }]}>
                         Save
                     </Text>
@@ -101,7 +92,7 @@ var styles = StyleSheet.create({
         fontWeight: "500",
     },
 
-    quote: {
+    task: {
         fontSize: 17,
         lineHeight: 38,
         fontFamily: 'Helvetica Neue',
