@@ -3,13 +3,13 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Dimensions, Text, TextInput, TouchableOpacity} from 'react-native';
 
 import { connect } from 'react-redux';
-import { addQuote, updateQuote } from '../actions'
+import { addTask, updateTask } from '../actions'
 import { Actions } from 'react-native-router-flux';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 const {width: windowWidth, height: windowHeight} = Dimensions.get('window');
 
-class NewQuote extends Component {
+class NewTask extends Component {
 
     constructor(props) {
         super(props);
@@ -19,7 +19,7 @@ class NewQuote extends Component {
         };
 
         this.generateID = this.generateID.bind(this);
-        this.addQuote = this.addQuote.bind(this);
+        this.addTask = this.addTask.bind(this);
     }
 
     generateID() {
@@ -33,15 +33,15 @@ class NewQuote extends Component {
         return id;
     }
 
-    addQuote() {
+    addTask() {
         if (this.props.edit){
             let task = this.props.task;
             task['task'] = this.state.task;
-            this.props.updateQuote(task);
+            this.props.updateTask(task);
         }else{
             let id = this.generateID();
             let task = {"id": id,"task": this.state.task};
-            this.props.addQuote(task);
+            this.props.addTask(task);
         }
 
         Actions.pop();
@@ -54,14 +54,14 @@ class NewQuote extends Component {
                     <TextInput
                         multiline={true}
                         onChangeText={(text) => this.setState({task: text})}
-                        placeholder={"Enter Quote"}
+                        placeholder={"Enter Task"}
                         style={[styles.task]}
                         value={this.state.task}
                     />
                 </View>
                 <TouchableOpacity style={[styles.saveBtn]}
                                   disabled={(this.state.task.length > 0) ? false : true}
-                                  onPress={this.addQuote}>
+                                  onPress={this.addTask}>
                     <Text style={[styles.buttonText,
                         {
                             color: (this.state.task.length > 0) ? "#FFF" : "rgba(255,255,255,.5)"
@@ -77,7 +77,7 @@ class NewQuote extends Component {
 }
 
 //Connect everything
-export default connect(null, {addQuote, updateQuote})(NewQuote);
+export default connect(null, {addTask, updateTask})(NewTask);
 
 var styles = StyleSheet.create({
     saveBtn:{

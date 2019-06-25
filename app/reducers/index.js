@@ -9,7 +9,7 @@ const dataReducer = (state = dataState, action) => {
     switch (action.type) {
         case ADD_QUOTE:{
             let quotes =  cloneObject(state.quotes) //clone the current state
-            quotes.unshift(action.quote); //add the new quote to the top
+            quotes.unshift(action.task); //add the new task to the top
             state = Object.assign({}, state, { quotes: quotes});
             return state;
         }
@@ -19,12 +19,12 @@ const dataReducer = (state = dataState, action) => {
             return state;
 
         case UPDATE_QUOTE:{
-            let quote = action.quote;
+            let task = action.task;
             let quotes =  cloneObject(state.quotes) //clone the current state
-            let index = getIndex(quotes, quote.id); //find the index of the quote with the quote id passed
+            let index = getIndex(quotes, task.id); //find the index of the task with the task id passed
             if (index !== -1) {
-                quotes[index]['author'] = quote.author;
-                quotes[index]['text'] = quote.text;
+                quotes[index]['author'] = task.author;
+                quotes[index]['text'] = task.text;
             }
             state = Object.assign({}, state, { quotes: quotes});
             return state;
@@ -32,8 +32,8 @@ const dataReducer = (state = dataState, action) => {
 
         case DELETE_QUOTE:{
             let quotes =  cloneObject(state.quotes) //clone the current state
-            let index = getIndex(quotes, action.id); //find the index of the quote with the id passed
-            if(index !== -1) quotes.splice(index, 1);//if yes, undo, remove the QUOTE
+            let index = getIndex(quotes, action.id); //find the index of the task with the id passed
+            if(index !== -1) quotes.splice(index, 1);//if yes, undo, remove the TASK
             state = Object.assign({}, state, { quotes: quotes});
             return state;
         }

@@ -34,7 +34,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.props.getQuotes(); //call our action
+        this.props.getTasks(); //call our action
     }
 
     showOptions(task) {
@@ -44,8 +44,8 @@ class Home extends Component {
                 destructiveButtonIndex: 1,
             },
             (buttonIndex) => {
-                if (buttonIndex === 0) Actions.new_quote({task: task, edit: true, title:"Edit Quote"})
-                else if (buttonIndex === 1) this.props.deleteQuote(task.id)
+                if (buttonIndex === 0) Actions.new_task({task: task, edit: true, title:"Edit Task"})
+                else if (buttonIndex === 1) this.props.deleteTask(task.id)
             });
     }
 
@@ -61,13 +61,13 @@ class Home extends Component {
                 <View style={styles.container}>
                     <FlatList
                         ref='listRef'
-                        data={this.props.quotes}
+                        data={this.props.tasks}
                         renderItem={this.renderItem}
                         keyExtractor={(item, index) => index}/>
 
 
                     <TouchableHighlight style={styles.addButton}
-                                        underlayColor='#ff7043' onPress={() => Actions.new_quote()}>
+                                        underlayColor='#ff7043' onPress={() => Actions.new_task()}>
                         <Text style={{fontSize: 25, color: 'white'}}>+</Text>
                     </TouchableHighlight>
                 </View>
@@ -99,7 +99,7 @@ class Home extends Component {
 function mapStateToProps(state, props) {
     return {
         loading: state.dataReducer.loading,
-        quotes: state.dataReducer.quotes
+        tasks: state.dataReducer.tasks
     }
 }
 

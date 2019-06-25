@@ -7,15 +7,15 @@ export const DELETE_QUOTE = 'DELETE_QUOTE';
 import {AsyncStorage} from "react-native";
 
 
-// Add Quote - CREATE (C)
-export function addQuote(quote){
+// Add Task - CREATE (C)
+export function addTask(task){
     return (dispatch) => {
         AsyncStorage.getItem('data', (err, quotes) => {
             if (quotes !== null){
                 quotes = JSON.parse(quotes);
-                quotes.unshift(quote); //add the new quote to the top
+                quotes.unshift(task); //add the new task to the top
                 AsyncStorage.setItem('data', JSON.stringify(quotes), () => {
-                    dispatch({type: ADD_QUOTE, quote:quote});
+                    dispatch({type: ADD_QUOTE, task:task});
                 });
             }
         });
@@ -23,7 +23,7 @@ export function addQuote(quote){
 }
 
 // Get Data - READ (R)
-export function getQuotes(){
+export function getTasks(){
     return (dispatch) => {
         AsyncStorage.getItem('data', (err, quotes) => {
             if (quotes !== null){
@@ -33,34 +33,34 @@ export function getQuotes(){
     };
 }
 
-// Update Quote - UPDATE (U)
-export function updateQuote(quote){
+// Update Task - UPDATE (U)
+export function updateTask(task){
     return (dispatch) => {
         AsyncStorage.getItem('data', (err, quotes) => {
             if (quotes !== null){
                 quotes = JSON.parse(quotes);
-                var index = getIndex(quotes, quote.id); //find the index of the quote with the id passed
+                var index = getIndex(quotes, task.id); //find the index of the task with the id passed
                 if (index !== -1) {
-                    quotes[index]['author'] = quote.author;
-                    quotes[index]['quote'] = quote.quote;
+                    quotes[index]['author'] = task.author;
+                    quotes[index]['task'] = task.task;
                 }
                 AsyncStorage.setItem('data', JSON.stringify(quotes), () => {
-                    dispatch({type: UPDATE_QUOTE, quote:quote});
+                    dispatch({type: UPDATE_QUOTE, task:task});
                 });
             }
         });
     };
 }
 
-// Delete Quote - DELETE (D)
-export function deleteQuote(id){
+// Delete Task - DELETE (D)
+export function deleteTask(id){
     return (dispatch) => {
         AsyncStorage.getItem('data', (err, quotes) => {
             if (quotes !== null){
                 quotes = JSON.parse(quotes);
 
-                var index = getIndex(quotes, id); //find the index of the quote with the id passed
-                if(index !== -1) quotes.splice(index, 1);//if yes, undo, remove the QUOTE
+                var index = getIndex(quotes, id); //find the index of the task with the id passed
+                if(index !== -1) quotes.splice(index, 1);//if yes, undo, remove the TASK
                 AsyncStorage.setItem('data', JSON.stringify(quotes), () => {
                     dispatch({type: DELETE_QUOTE, id:id});
                 });
