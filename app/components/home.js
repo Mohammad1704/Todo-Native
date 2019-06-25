@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
 
     container:{
         flex:1,
-        backgroundColor: '#F5F5F5'
+        backgroundColor: '#fff'
     },
 
     activityIndicatorContainer:{
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
 
     row:{
         borderBottomWidth: 1,
-        borderColor: "#ccc",
+        borderColor: "#D0D0CE",
         padding: 10
     },
     task: {
@@ -138,8 +138,8 @@ const styles = StyleSheet.create({
     },
 
     addButton: {
-        backgroundColor: '#ff5722',
-        borderColor: '#ff5722',
+        backgroundColor: '#86BC25',
+        borderColor: '#86BC25',
         borderWidth: 1,
         height: 50,
         width: 50,
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute',
-        bottom: 20,
+        bottom: 200,
         right: 20,
         shadowColor: "#000000",
         shadowOpacity: 0.8,

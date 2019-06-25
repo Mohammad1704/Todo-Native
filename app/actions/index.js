@@ -41,7 +41,6 @@ export function updateTask(task){
                 tasks = JSON.parse(tasks);
                 var index = getIndex(tasks, task.id); //find the index of the task with the id passed
                 if (index !== -1) {
-                    tasks[index]['author'] = task.author;
                     tasks[index]['task'] = task.task;
                 }
                 AsyncStorage.setItem('data', JSON.stringify(tasks), () => {

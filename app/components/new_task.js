@@ -64,7 +64,7 @@ class NewTask extends Component {
                                   onPress={this.addTask}>
                     <Text style={[styles.buttonText,
                         {
-                            color: (this.state.task.length > 0) ? "#FFF" : "rgba(255,255,255,.5)"
+                            color: (this.state.task.length > 0) ? "#FFF" : "rgba(134,188,B37,.5)"
                         }]}>
                         Save
                     </Text>
@@ -85,10 +85,11 @@ var styles = StyleSheet.create({
         height: 44,
         justifyContent: "center",
         alignItems: 'center',
-        backgroundColor:"#6B9EFA"
+        backgroundColor:"#86BC25"
     },
 
     buttonText:{
+        backgroundColor:"#86BC25",
         fontWeight: "500",
     },
 

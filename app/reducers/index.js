@@ -23,7 +23,6 @@ const dataReducer = (state = dataState, action) => {
             let tasks =  cloneObject(state.tasks) //clone the current state
             let index = getIndex(tasks, task.id); //find the index of the task with the task id passed
             if (index !== -1) {
-                tasks[index]['author'] = task.author;
                 tasks[index]['text'] = task.text;
             }
             state = Object.assign({}, state, { tasks: tasks});
