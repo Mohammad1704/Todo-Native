@@ -67,7 +67,7 @@ class Home extends Component {
 
 
                     <TouchableHighlight style={styles.addButton}
-                                        underlayColor='#ff7043' onPress={() => Actions.new_task()}>
+                                        underlayColor='#43B02A' onPress={() => Actions.new_task()}>
                         <Text style={{fontSize: 25, color: 'white'}}>+</Text>
                     </TouchableHighlight>
                 </View>
@@ -77,7 +77,7 @@ class Home extends Component {
 
     renderItem({item, index}) {
         return (
-            <TouchableHighlight onPress={() => this.showOptions(item)} underlayColor='rgba(0,0,0,.2)'>
+            <TouchableHighlight onPress={() => this.showOptions(item)} underlayColor='rgba(0,0,0,.2)' >
                 <View style={styles.row}>
                     <Text style={styles.task}>
                         {item.task}
@@ -140,15 +140,15 @@ const styles = StyleSheet.create({
     addButton: {
         backgroundColor: '#86BC25',
         borderColor: '#86BC25',
-        borderWidth: 1,
+        borderWidth: 0,
         height: 50,
         width: 50,
         borderRadius: 50 / 2,
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute',
-        bottom: 200,
-        right: 20,
+        bottom: 50,
+        right: '43%',
         shadowColor: "#000000",
         shadowOpacity: 0.8,
         shadowRadius: 2,
