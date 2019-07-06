@@ -30,7 +30,7 @@ class Main extends Component {
         return (
             <Router>
                 <Scene key="root">
-                    <Scene key="home" component={Home} title="Deloitte Todo List" initial/>
+                    <Scene key="home" component={Home} title="Deloitte. Todo List" initial/>
                     <Scene key="new_task" component={NewTask} title="New Task"/>
                 </Scene>
             </Router>

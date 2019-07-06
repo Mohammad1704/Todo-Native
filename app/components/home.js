@@ -79,8 +79,9 @@ class Home extends Component {
         return (
             <TouchableHighlight onPress={() => this.showOptions(item)} underlayColor='rgba(0,0,0,.2)' >
                 <View style={styles.row}>
+                {/* <span style={{color:'#43B02A'}}>blue</span> make styling outside ex. style.dot */}
                     <Text style={styles.task}>
-                        {item.task}
+                       {'◉ ' + item.task}
                     </Text>
                     {/* <Text >
                         put date auto 

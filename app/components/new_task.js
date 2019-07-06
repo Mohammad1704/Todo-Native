@@ -56,15 +56,15 @@ class NewTask extends Component {
                         onChangeText={(text) => this.setState({task: text})}
                         placeholder={"Enter Task"}
                         style={[styles.task]}
-                        value={this.state.task}
-                    />
+                        value={this.state.task} 
+                    /> 
                 </View>
                 <TouchableOpacity style={[styles.saveBtn]}
                                   disabled={(this.state.task.length > 0) ? false : true}
                                   onPress={this.addTask}>
                     <Text style={[styles.buttonText,
                         {
-                            color: (this.state.task.length > 0) ? "#FFF" : "rgba(134,188,B37,.5)"
+                            color: (this.state.task.length > 0) ? "#FFF" : "rgba(255,255,255,.5)"
                         }]}>
                         Save
                     </Text>
