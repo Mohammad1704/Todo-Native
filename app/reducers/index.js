@@ -1,40 +1,39 @@
 
 import { combineReducers } from 'redux';
 
-import { QUOTES_AVAILABLE, ADD_QUOTE, UPDATE_QUOTE, DELETE_QUOTE } from "../actions/" //Import the actions types constant we defined in our actions
+import { TASKS_AVAILABLE, ADD_TASK, UPDATE_TASK, DELETE_TASK } from "../actions/" //Import the actions types constant we defined in our actions
 
-let dataState = { quotes: [], loading:true };
+let dataState = { tasks: [], loading:true };
 
 const dataReducer = (state = dataState, action) => {
     switch (action.type) {
-        case ADD_QUOTE:{
-            let quotes =  cloneObject(state.quotes) //clone the current state
-            quotes.unshift(action.quote); //add the new quote to the top
-            state = Object.assign({}, state, { quotes: quotes});
+        case ADD_TASK:{
+            let tasks =  cloneObject(state.tasks) //clone the current state
+            tasks.unshift(action.task); //add the new task to the top
+            state = Object.assign({}, state, { tasks: tasks});
             return state;
         }
 
-        case QUOTES_AVAILABLE:
-            state = Object.assign({}, state, { quotes: action.quotes, loading:false });
+        case TASKS_AVAILABLE:
+            state = Object.assign({}, state, { tasks: action.tasks, loading:false });
             return state;
 
-        case UPDATE_QUOTE:{
-            let quote = action.quote;
-            let quotes =  cloneObject(state.quotes) //clone the current state
-            let index = getIndex(quotes, quote.id); //find the index of the quote with the quote id passed
+        case UPDATE_TASK:{
+            let task = action.task;
+            let tasks =  cloneObject(state.tasks) //clone the current state
+            let index = getIndex(tasks, task.id); //find the index of the task with the task id passed
             if (index !== -1) {
-                quotes[index]['author'] = quote.author;
-                quotes[index]['text'] = quote.text;
+                tasks[index]['text'] = task.text;
             }
-            state = Object.assign({}, state, { quotes: quotes});
+            state = Object.assign({}, state, { tasks: tasks});
             return state;
         }
 
-        case DELETE_QUOTE:{
-            let quotes =  cloneObject(state.quotes) //clone the current state
-            let index = getIndex(quotes, action.id); //find the index of the quote with the id passed
-            if(index !== -1) quotes.splice(index, 1);//if yes, undo, remove the QUOTE
-            state = Object.assign({}, state, { quotes: quotes});
+        case DELETE_TASK:{
+            let tasks =  cloneObject(state.tasks) //clone the current state
+            let index = getIndex(tasks, action.id); //find the index of the task with the id passed
+            if(index !== -1) tasks.splice(index, 1);//if yes, undo, remove the TASK
+            state = Object.assign({}, state, { tasks: tasks});
             return state;
         }
 

@@ -34,18 +34,18 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.props.getQuotes(); //call our action
+        this.props.getTasks(); //call our action
     }
 
-    showOptions(quote) {
+    showOptions(task) {
         ActionSheetIOS.showActionSheetWithOptions({
                 options: BUTTONS,
                 cancelButtonIndex: CANCEL_INDEX,
                 destructiveButtonIndex: 1,
             },
             (buttonIndex) => {
-                if (buttonIndex === 0) Actions.new_quote({quote: quote, edit: true, title:"Edit Quote"})
-                else if (buttonIndex === 1) this.props.deleteQuote(quote.id)
+                if (buttonIndex === 0) Actions.new_task({task: task, edit: true, title:"Edit Task"})
+                else if (buttonIndex === 1) this.props.deleteTask(task.id)
             });
     }
 
@@ -61,13 +61,13 @@ class Home extends Component {
                 <View style={styles.container}>
                     <FlatList
                         ref='listRef'
-                        data={this.props.quotes}
+                        data={this.props.tasks}
                         renderItem={this.renderItem}
                         keyExtractor={(item, index) => index}/>
 
 
                     <TouchableHighlight style={styles.addButton}
-                                        underlayColor='#ff7043' onPress={() => Actions.new_quote()}>
+                                        underlayColor='#43B02A' onPress={() => Actions.new_task()}>
                         <Text style={{fontSize: 25, color: 'white'}}>+</Text>
                     </TouchableHighlight>
                 </View>
@@ -77,14 +77,15 @@ class Home extends Component {
 
     renderItem({item, index}) {
         return (
-            <TouchableHighlight onPress={() => this.showOptions(item)} underlayColor='rgba(0,0,0,.2)'>
+            <TouchableHighlight onPress={() => this.showOptions(item)} underlayColor='rgba(0,0,0,.2)' >
                 <View style={styles.row}>
-                    <Text style={styles.quote}>
-                        {item.quote}
+                {/* <span style={{color:'#43B02A'}}>blue</span> make styling outside ex. style.dot */}
+                    <Text style={styles.task}>
+                       {'◉ ' + item.task}
                     </Text>
-                    <Text style={styles.author}>
-                        {item.author}
-                    </Text>
+                    {/* <Text >
+                        put date auto 
+                    </Text> */}
                 </View>
             </TouchableHighlight>
         )
@@ -99,7 +100,7 @@ class Home extends Component {
 function mapStateToProps(state, props) {
     return {
         loading: state.dataReducer.loading,
-        quotes: state.dataReducer.quotes
+        tasks: state.dataReducer.tasks
     }
 }
 
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
 
     container:{
         flex:1,
-        backgroundColor: '#F5F5F5'
+        backgroundColor: '#fff'
     },
 
     activityIndicatorContainer:{
@@ -129,33 +130,26 @@ const styles = StyleSheet.create({
 
     row:{
         borderBottomWidth: 1,
-        borderColor: "#ccc",
+        borderColor: "#D0D0CE",
         padding: 10
     },
-
-    author: {
-        fontSize: 14,
-        fontWeight: "600",
-        marginTop: 8 * 2
-    },
-
-    quote: {
+    task: {
         marginTop: 5,
         fontSize: 14,
     },
 
     addButton: {
-        backgroundColor: '#ff5722',
-        borderColor: '#ff5722',
-        borderWidth: 1,
+        backgroundColor: '#86BC25',
+        borderColor: '#86BC25',
+        borderWidth: 0,
         height: 50,
         width: 50,
         borderRadius: 50 / 2,
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute',
-        bottom: 20,
-        right: 20,
+        bottom: 50,
+        right: '43%',
         shadowColor: "#000000",
         shadowOpacity: 0.8,
         shadowRadius: 2,

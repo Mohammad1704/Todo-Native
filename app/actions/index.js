@@ -1,21 +1,21 @@
 
-export const QUOTES_AVAILABLE = 'QUOTES_AVAILABLE';
-export const ADD_QUOTE = 'ADD_QUOTE';
-export const UPDATE_QUOTE = 'UPDATE_QUOTE';
-export const DELETE_QUOTE = 'DELETE_QUOTE';
+export const TASKS_AVAILABLE = 'TASKS_AVAILABLE';
+export const ADD_TASK = 'ADD_TASK';
+export const UPDATE_TASK = 'UPDATE_TASK';
+export const DELETE_TASK = 'DELETE_TASK';
 
 import {AsyncStorage} from "react-native";
 
 
-// Add Quote - CREATE (C)
-export function addQuote(quote){
+// Add Task - CREATE (C)
+export function addTask(task){
     return (dispatch) => {
-        AsyncStorage.getItem('data', (err, quotes) => {
-            if (quotes !== null){
-                quotes = JSON.parse(quotes);
-                quotes.unshift(quote); //add the new quote to the top
-                AsyncStorage.setItem('data', JSON.stringify(quotes), () => {
-                    dispatch({type: ADD_QUOTE, quote:quote});
+        AsyncStorage.getItem('data', (err, tasks) => {
+            if (tasks !== null){
+                tasks = JSON.parse(tasks);
+                tasks.unshift(task); //add the new task to the top
+                AsyncStorage.setItem('data', JSON.stringify(tasks), () => {
+                    dispatch({type: ADD_TASK, task:task});
                 });
             }
         });
@@ -23,46 +23,45 @@ export function addQuote(quote){
 }
 
 // Get Data - READ (R)
-export function getQuotes(){
+export function getTasks(){
     return (dispatch) => {
-        AsyncStorage.getItem('data', (err, quotes) => {
-            if (quotes !== null){
-                dispatch({type: QUOTES_AVAILABLE, quotes:JSON.parse(quotes)});
+        AsyncStorage.getItem('data', (err, tasks) => {
+            if (tasks !== null){
+                dispatch({type: TASKS_AVAILABLE, tasks:JSON.parse(tasks)});
             }
         });
     };
 }
 
-// Update Quote - UPDATE (U)
-export function updateQuote(quote){
+// Update Task - UPDATE (U)
+export function updateTask(task){
     return (dispatch) => {
-        AsyncStorage.getItem('data', (err, quotes) => {
-            if (quotes !== null){
-                quotes = JSON.parse(quotes);
-                var index = getIndex(quotes, quote.id); //find the index of the quote with the id passed
+        AsyncStorage.getItem('data', (err, tasks) => {
+            if (tasks !== null){
+                tasks = JSON.parse(tasks);
+                var index = getIndex(tasks, task.id); //find the index of the task with the id passed
                 if (index !== -1) {
-                    quotes[index]['author'] = quote.author;
-                    quotes[index]['quote'] = quote.quote;
+                    tasks[index]['task'] = task.task;
                 }
-                AsyncStorage.setItem('data', JSON.stringify(quotes), () => {
-                    dispatch({type: UPDATE_QUOTE, quote:quote});
+                AsyncStorage.setItem('data', JSON.stringify(tasks), () => {
+                    dispatch({type: UPDATE_TASK, task:task});
                 });
             }
         });
     };
 }
 
-// Delete Quote - DELETE (D)
-export function deleteQuote(id){
+// Delete Task - DELETE (D)
+export function deleteTask(id){
     return (dispatch) => {
-        AsyncStorage.getItem('data', (err, quotes) => {
-            if (quotes !== null){
-                quotes = JSON.parse(quotes);
+        AsyncStorage.getItem('data', (err, tasks) => {
+            if (tasks !== null){
+                tasks = JSON.parse(tasks);
 
-                var index = getIndex(quotes, id); //find the index of the quote with the id passed
-                if(index !== -1) quotes.splice(index, 1);//if yes, undo, remove the QUOTE
-                AsyncStorage.setItem('data', JSON.stringify(quotes), () => {
-                    dispatch({type: DELETE_QUOTE, id:id});
+                var index = getIndex(tasks, id); //find the index of the task with the id passed
+                if(index !== -1) tasks.splice(index, 1);//if yes, undo, remove the TASK
+                AsyncStorage.setItem('data', JSON.stringify(tasks), () => {
+                    dispatch({type: DELETE_TASK, id:id});
                 });
             }
         });

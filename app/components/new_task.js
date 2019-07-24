@@ -3,24 +3,23 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Dimensions, Text, TextInput, TouchableOpacity} from 'react-native';
 
 import { connect } from 'react-redux';
-import { addQuote, updateQuote } from '../actions'
+import { addTask, updateTask } from '../actions'
 import { Actions } from 'react-native-router-flux';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 const {width: windowWidth, height: windowHeight} = Dimensions.get('window');
 
-class NewQuote extends Component {
+class NewTask extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            author: (props.edit) ? props.quote.author : "",
-            quote: (props.edit) ? props.quote.quote : ""
+            task: (props.edit) ? props.task.task : ""
         };
 
         this.generateID = this.generateID.bind(this);
-        this.addQuote = this.addQuote.bind(this);
+        this.addTask = this.addTask.bind(this);
     }
 
     generateID() {
@@ -34,16 +33,15 @@ class NewQuote extends Component {
         return id;
     }
 
-    addQuote() {
+    addTask() {
         if (this.props.edit){
-            let quote = this.props.quote;
-            quote['author'] = this.state.author;
-            quote['quote'] = this.state.quote;
-            this.props.updateQuote(quote);
+            let task = this.props.task;
+            task['task'] = this.state.task;
+            this.props.updateTask(task);
         }else{
             let id = this.generateID();
-            let quote = {"id": id, "author": this.state.author, "quote": this.state.quote};
-            this.props.addQuote(quote);
+            let task = {"id": id,"task": this.state.task};
+            this.props.addTask(task);
         }
 
         Actions.pop();
@@ -54,26 +52,19 @@ class NewQuote extends Component {
             <View style={{flex: 1, backgroundColor: '#fff'}}>
                 <View style={{flex:1, paddingLeft:10, paddingRight:10}}>
                     <TextInput
-                        onChangeText={(text) => this.setState({author: text})}
-                        placeholder={"Author"}
-                        autoFocus={true}
-                        style={[styles.title]}
-                        value={this.state.author}
-                    />
-                    <TextInput
                         multiline={true}
-                        onChangeText={(text) => this.setState({quote: text})}
-                        placeholder={"Enter Quote"}
-                        style={[styles.quote]}
-                        value={this.state.quote}
-                    />
+                        onChangeText={(text) => this.setState({task: text})}
+                        placeholder={"Enter Task"}
+                        style={[styles.task]}
+                        value={this.state.task} 
+                    /> 
                 </View>
                 <TouchableOpacity style={[styles.saveBtn]}
-                                  disabled={(this.state.author.length > 0 && this.state.quote.length > 0) ? false : true}
-                                  onPress={this.addQuote}>
+                                  disabled={(this.state.task.length > 0) ? false : true}
+                                  onPress={this.addTask}>
                     <Text style={[styles.buttonText,
                         {
-                            color: (this.state.author.length > 0 && this.state.quote.length > 0) ? "#FFF" : "rgba(255,255,255,.5)"
+                            color: (this.state.task.length > 0) ? "#FFF" : "rgba(255,255,255,.5)"
                         }]}>
                         Save
                     </Text>
@@ -86,7 +77,7 @@ class NewQuote extends Component {
 }
 
 //Connect everything
-export default connect(null, {addQuote, updateQuote})(NewQuote);
+export default connect(null, {addTask, updateTask})(NewTask);
 
 var styles = StyleSheet.create({
     saveBtn:{
@@ -94,14 +85,15 @@ var styles = StyleSheet.create({
         height: 44,
         justifyContent: "center",
         alignItems: 'center',
-        backgroundColor:"#6B9EFA"
+        backgroundColor:"#86BC25"
     },
 
     buttonText:{
+        backgroundColor:"#86BC25",
         fontWeight: "500",
     },
 
-    quote: {
+    task: {
         fontSize: 17,
         lineHeight: 38,
         fontFamily: 'Helvetica Neue',
